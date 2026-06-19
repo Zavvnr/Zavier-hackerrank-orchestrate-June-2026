@@ -1,0 +1,50 @@
+{
+  "name": "mate-harness",
+  "description": "MATE project harness — inventories the rules, subagent, commands, and scripts tuned for this repo.",
+  "version": "2.0.0",
+
+  "mcp_servers": {
+    "description": "No external MCP servers are used by MATE. Add one only after the user approves it (see rules/security.md).",
+    "$source": "../.mcp.json"
+  },
+
+  "commands": {
+    "description": "Slash commands for the project's real workflows. Located in .claude/commands/.",
+    "items": [
+      { "name": "test",   "path": ".claude/commands/test.md",   "description": "Run the unit + integration test suite." },
+      { "name": "ingest", "path": ".claude/commands/ingest.md", "description": "Rebuild the Laws-of-the-Game RAG index (Docling + Granite)." },
+      { "name": "spike",  "path": ".claude/commands/spike.md",  "description": "Run the go/no-go commentary spike." },
+      { "name": "run",    "path": ".claude/commands/run.md",    "description": "Start the Flask web app." }
+    ]
+  },
+
+  "subagents": {
+    "description": "One lean, repo-aware reviewer. Located in .claude/agents/subagents/.",
+    "items": [
+      { "name": "code-reviewer", "path": ".claude/agents/subagents/code-reviewer.md",
+        "role": "Reviews a change against MATE's constraints, correctness, tests, grounding, and style. Returns APPROVED / CHANGES REQUIRED / BLOCKED." }
+    ]
+  },
+
+  "rules": {
+    "description": "Behavioural rules, trimmed to this local MVP. Located in .claude/rules/.",
+    "items": [
+      { "name": "workflows",   "path": ".claude/rules/workflows.md",   "description": "Light, proportional workflow + hard constraints." },
+      { "name": "code-style",  "path": ".claude/rules/code-style.md",  "description": "Concise code and explanation style." },
+      { "name": "security",    "path": ".claude/rules/security.md",    "description": "Consent before integrations, secrets handling, .env protection, input grounding." },
+      { "name": "testing",     "path": ".claude/rules/testing.md",     "description": "unittest unit + integration; sandbox-mirror run workflow." },
+      { "name": "preferences", "path": ".claude/rules/preferences.md", "description": "Neat, readable, fail-safe code; no over-engineering." }
+    ]
+  },
+
+  "scripts": {
+    "description": "Executable scripts. Located in .claude/my-plugin/skills/scripts/.",
+    "items": [
+      { "name": "validate",
+        "path": ".claude/my-plugin/skills/scripts/validate.sh",
+        "command": "bash .claude/my-plugin/skills/scripts/validate.sh [file_or_directory]",
+        "description": "Python sanity gate: py_compile + line-length (hard), module-docstring (warn).",
+        "exit_codes": { "0": "Clean (warnings allowed)", "1": "Python syntax error (style issues are warnings)" } }
+    ]
+  }
+}
