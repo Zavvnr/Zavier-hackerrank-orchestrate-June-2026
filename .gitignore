@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Secrets / environment (never commit; read keys from env vars)
+.env
+.env.*
+!.env.example
+
+# Generated caches and logs
+code/.cache/
+.cache/
+*.log
+
+# OS cruft
+.DS_Store
+Thumbs.db

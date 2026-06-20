@@ -1,0 +1,5 @@
+# Only third-party dependency: the Anthropic Claude SDK (vision + text).
+# The code uses stable APIs (messages.create, RateLimitError, APIStatusError),
+# so any recent release works. Pin exactly (e.g. anthropic==X.Y.Z) for a fully
+# reproducible submission.
+anthropic
